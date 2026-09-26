@@ -3,18 +3,18 @@
     {
       "id": "v2-0-0",
       "version": "2.0.0",
-      "date": "2026-09-20",
+      "date": "2026-09-26",
       "title": {
-        "pt-BR": "Nova página de Perfil",
-        "en": "New Profile page",
-        "es": "Nueva página de Perfil",
-        "fr": "Nouvelle page Profil"
+        "pt-BR": "Seja Bem Vindo(a)",
+        "en": "Welcome!",
+        "es": "Bienvenido!",
+        "fr": "Bienvenue!"
       },
       "description": {
-        "pt-BR": "Agora você pode ver seu nível e o XP restante para o próximo nível.",
-        "en": "You can now see your level and remaining XP to the next level.",
-        "es": "Ahora puedes ver tu nivel y el XP restante para el próximo nivel.",
-        "fr": "Vous pouvez maintenant voir votre niveau et l'XP restant avant le niveau suivant."
+        "pt-BR": "Agora chegou a hora de você upar essa conta ao maximo",
+        "en": "Now the time has come for you to make the most of this account.",
+        "es": "Ahora ha llegado el momento de que aproveches esta cuenta al máximo.",
+        "fr": "Il est maintenant temps pour vous de tirer le meilleur parti de ce compte"
       },
       "url": "https://drive.google.com/drive/folders/1Qkdd_zAYe_F-ejvyq3YmbfnAaH8pzGiN?usp=sharing"
     }
