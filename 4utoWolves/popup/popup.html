@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>4utoWolves</title>
+    <link rel="stylesheet" href="popup.css" />
+    <link rel="stylesheet" href="home.css" />
+    <link rel="stylesheet" href="tools.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="brand">
+        <button type="button" id="profileButton" class="brand-avatar" aria-label="Perfil">
+          <img class="avatar-ring" src="assets/avatar-ring.svg" width="42" height="42" alt="" />
+          <img class="avatar-glyph" src="assets/player.svg" width="14" height="16" alt="" />
+        </button>
+        <div class="brand-copy"><p class="brand-name">4utoWolves</p><p class="brand-subtitle">Automation Panel</p></div>
+      </div>
+      <div class="header-actions">
+        <div class="connection-status" id="topbarStatus" data-state="waiting" role="status">
+          <span class="connection-dot" aria-hidden="true"></span><span id="connectionLabel" class="visually-hidden">WAITING</span>
+        </div>
+        <button type="button" id="updatesButton" class="updates-button" aria-label="Notificações" aria-haspopup="dialog" aria-controls="updatesPanel" aria-expanded="false">
+          <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+          <span id="updatesBadge" class="updates-badge hidden" aria-label="Novidades não lidas"></span>
+        </button>
+      </div>
+    </header>
+
+    <main class="main-content" data-page="overview" id="mainContent">
+      <img class="home-watermark" src="assets/wolf-background.png" width="400" height="400" alt="" aria-hidden="true" />
+      <section class="page active" id="page-overview" aria-labelledby="welcomeTitle">
+        <div class="welcome-section">
+          <h1 class="welcome-title" id="welcomeTitle">Farm de XP</h1>
+          <p class="welcome-subtitle">Tudo pronto para sua próxima partida</p>
+        </div>
+
+        <section class="automation-card" id="automationCard" data-state="waiting" aria-labelledby="automationTitle">
+          <h2 class="automation-eyebrow" id="automationTitle">AUTOMATION STATUS</h2>
+          <div class="automation-status-row" id="autoPlayStatus" data-state="waiting" role="status" aria-labelledby="autoPlayStatusTitle">
+            <h3 id="autoPlayStatusTitle">Auto Play</h3>
+            <span class="automation-badge">
+              <img src="assets/status-dot.svg" width="8" height="8" alt="" /><span id="automationBadgeLabel">WAITING</span>
+            </span>
+          </div>
+          <div class="automation-status-row" id="autoReplayStatus" data-state="waiting" role="status" aria-labelledby="autoReplayStatusTitle">
+            <h3 id="autoReplayStatusTitle">Auto Replay</h3>
+            <span class="automation-badge">
+              <img src="assets/status-dot.svg" width="8" height="8" alt="" /><span id="autoReplayBadgeLabel">WAITING</span>
+            </span>
+          </div>
+        </section>
+
+        <section class="home-summary" aria-labelledby="summaryTitle">
+          <h2 class="home-section-title" id="summaryTitle">Resumo</h2>
+          <div class="summary-grid">
+            <div class="summary-card">
+              <p class="summary-label">XP</p><img src="assets/xp-card.svg" width="14" height="14" alt="" />
+              <p class="summary-value" id="homeSessionXP">—</p><p class="summary-caption">sessão</p>
+            </div>
+            <div class="summary-card">
+              <p class="summary-label">Coins</p><img src="assets/coins-card.svg" width="14" height="14" alt="" />
+              <p class="summary-value" id="homeCoins">—</p><p class="summary-caption">total</p>
+            </div>
+            <div class="summary-card">
+              <p class="summary-label">Roses</p><img src="assets/roses-card.svg" width="14" height="14" alt="" />
+              <p class="summary-value" id="homeRoses">—</p><p class="summary-caption">total</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="home-actions" aria-labelledby="quickActionsTitle">
+          <h2 class="home-section-title" id="quickActionsTitle">Ações rápidas</h2>
+          <div class="quick-actions">
+            <button class="quick-action" id="homeAutoPlay" type="button" aria-pressed="false" disabled>
+              <span class="quick-action-icons" aria-hidden="true"><img src="assets/play.svg" width="12" height="12" alt="" /></span><span>Auto Play</span>
+            </button>
+            <button class="quick-action" id="homeAutoReplay" type="button" aria-pressed="false" disabled>
+              <span class="quick-action-icons" aria-hidden="true"><img src="assets/play.svg" width="12" height="12" alt="" /></span><span>Auto Replay</span>
+            </button>
+          </div>
+        </section>
+      </section>
+
+      <!-- Gold farm page -->
+      <section class="page gold-page" id="page-xp" aria-labelledby="goldPageTitle">
+        <header class="gold-heading">
+          <h1 id="goldPageTitle">Farm de Ouro</h1>
+          <p>Automatize a Gold Wheel e acompanhe a sessão</p>
+        </header>
+
+        <section class="gold-status-card" id="goldStatusCard" data-state="stopped" aria-labelledby="goldStatusTitle">
+          <p class="gold-eyebrow">STATUS DA FARM</p>
+          <div class="gold-status-heading">
+            <h2 id="goldStatusTitle">Farm parada</h2>
+            <span class="gold-status-badge" role="status"><span class="gold-status-dot" aria-hidden="true"></span><span id="goldStatusBadge">PARADA</span></span>
+          </div>
+          <p class="gold-description" id="goldDescription" data-no-i18n>Aguardando você iniciar a automação.</p>
+        </section>
+
+        <section class="gold-summary" aria-labelledby="goldSummaryTitle">
+          <h2 class="home-section-title" id="goldSummaryTitle">Resumo da sessão</h2>
+          <div class="summary-grid">
+            <div class="summary-card">
+              <p class="summary-label">Giros</p><img src="assets/spin.svg" width="14" height="14" alt="" />
+              <p class="summary-value" id="goldSessionSpins">—</p><p class="summary-caption">sessão</p>
+            </div>
+            <div class="summary-card gold-earned-card">
+              <p class="summary-label">Ouro ganho</p><img src="assets/coins-card.svg" width="14" height="14" alt="" />
+              <p class="summary-value" id="goldSessionEarned">—</p><p class="summary-caption">Coins</p>
+            </div>
+            <div class="summary-card">
+              <p class="summary-label">Total</p><img src="assets/wallet.svg" width="14" height="14" alt="" />
+              <p class="summary-value" id="goldTotalCoins">—</p><p class="summary-caption">Coins</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="gold-controls" aria-labelledby="goldControlsTitle">
+          <h2 class="home-section-title" id="goldControlsTitle">Controles</h2>
+          <div class="gold-buttons">
+            <button class="gold-control gold-start" id="goldFarmStart" type="button" disabled title="Aguardando conexão com o jogo">
+              <img src="assets/play.svg" width="14" height="14" alt="" /><span id="goldStartLabel">Iniciar Farm</span>
+            </button>
+            <button class="gold-control gold-once" id="goldFarmSpin" type="button" disabled title="Aguardando conexão com o jogo">
+              <img src="assets/spin.svg" width="16" height="16" alt="" /><span>Girar uma vez</span>
+            </button>
+          </div>
+        </section>
+      </section>
+
+      <!-- Misc Page -->
+      <div class="page tools-page" id="page-misc" data-no-i18n>
+        <h2 class="page-title">Tools</h2>
+        <form id="toolsPrefs">
+          <details class="tools-group" open>
+            <summary data-tool-text="Metas"></summary>
+            <div class="tools-body tools-grid">
+              <label><span data-tool-text="Meta de XP"></span><input id="toolsXpGoal" name="xp-goal" type="number" min="0" max="1000000000" step="1" value="0" /></label>
+              <label><span data-tool-text="Meta de Ouro"></span><input id="toolsGoldGoal" name="gold-goal" type="number" min="0" max="1000000000" step="1" value="0" /></label>
+              <label class="tools-check"><input id="toolsXpStopGoal" type="checkbox" checked /><span data-tool-text="Parar XP na meta"></span></label>
+              <label class="tools-check"><input id="toolsGoldStopGoal" type="checkbox" checked /><span data-tool-text="Parar Ouro na meta"></span></label>
+              <p class="tools-hint tools-wide" data-tool-text="Metas contam ganhos da sessão. Zero desativa o limite."></p>
+            </div>
+          </details>
+          <details class="tools-group">
+            <summary data-tool-text="Perfis"></summary>
+            <div class="tools-body">
+              <label><span data-tool-text="Nome do perfil"></span><input id="toolsProfileName" type="text" maxlength="40" autocomplete="off" /></label>
+              <button type="button" id="toolsProfileSave" data-tool-text="Salvar perfil atual"></button>
+              <p class="tools-hint" data-tool-text="O perfil guarda as metas e alertas já salvos."></p>
+              <label><span data-tool-text="Perfis salvos"></span><select id="toolsProfiles"></select></label>
+              <div class="tools-button-grid">
+                <button type="button" id="toolsProfileApply" data-tool-text="Aplicar perfil"></button>
+                <button type="button" id="toolsProfileDelete" data-tool-text="Excluir perfil"></button>
+              </div>
+            </div>
+          </details>
+          <button class="tools-primary" type="submit" id="toolsSave" data-tool-text="Salvar metas" disabled></button>
+        </form>
+        <details class="tools-group">
+          <summary data-tool-text="Exibição"></summary>
+          <div class="tools-body">
+            <label class="tools-check"><input id="showHiddenLvlToggle" type="checkbox" /><span data-tool-text="Mostrar níveis ocultos"></span></label>
+            <p class="tools-hint" data-tool-text="Exibe o nível de outros jogadores mesmo quando estiver oculto."></p>
+          </div>
+        </details>
+        <p id="toolsFeedback" class="tools-feedback" role="status"></p>
+      </div>
+
+      <!-- Results Page -->
+      <div class="page tools-page" id="page-results" data-no-i18n>
+        <h2 class="page-title" data-tool-text="Resultados"></h2>
+        <details class="tools-group" open>
+          <summary data-tool-text="Sessão e rendimento"></summary>
+          <div class="tools-body" id="toolsSessionStats"></div>
+        </details>
+        <details class="tools-group" open>
+          <summary data-tool-text="Gráficos"></summary>
+          <div class="tools-body">
+            <div class="tools-chart-legend">
+              <span class="xp" data-tool-text="XP"></span>
+              <span class="gold" data-tool-text="Ouro"></span>
+            </div>
+            <h3 data-tool-text="Ganhos por sessão"></h3>
+            <div class="tools-chart" id="toolsChartEarned"></div>
+            <h3 data-tool-text="Partidas e giros por sessão"></h3>
+            <div class="tools-chart" id="toolsChartCount"></div>
+          </div>
+        </details>
+        <details class="tools-group">
+          <summary data-tool-text="Dados e histórico"></summary>
+          <div class="tools-body">
+            <div class="tools-button-grid">
+              <button type="button" data-tool-action="reset" data-farm="xp" data-tool-text="Zerar sessão de XP"></button>
+              <button type="button" data-tool-action="reset" data-farm="gold" data-tool-text="Zerar sessão de Ouro"></button>
+              <button type="button" data-tool-action="reset" data-farm="all" data-tool-text="Zerar tudo"></button>
+              <button type="button" id="toolsExportCsv" data-tool-text="Exportar CSV"></button>
+            </div>
+            <p class="tools-hint" data-tool-text="Zerar encerra a farm e salva a sessão no histórico. Não altera o saldo da conta."></p>
+            <h3 data-tool-text="Últimas sessões"></h3>
+            <div id="toolsHistory"></div>
+          </div>
+        </details>
+      </div>
+
+      <!-- Options Page -->
+      <div class="page" id="page-options">
+        <h2 class="page-title">Settings</h2>
+        <div class="account-summary account-summary-single">
+          <div><span class="info-label">Token</span><span class="info-value license-status" id="licenseStatus">—</span></div>
+        </div>
+        <div class="tools-page settings-license" id="settingsLicense" data-no-i18n>
+          <details class="tools-group" open>
+            <summary data-tool-text="Licença"></summary>
+            <div class="tools-body">
+              <div id="licenseForm">
+                <label><span data-tool-text="Token de licença"></span><input id="licenseTokenInput" type="text" autocomplete="off" spellcheck="false" placeholder="Cole seu token aqui" /></label>
+                <div class="tools-button-grid">
+                  <button type="button" id="licenseActivateButton" data-tool-text="Ativar token"></button>
+                  <a id="licenseGenerateLink" class="license-generate-link" href="#" target="_blank" rel="noopener" data-tool-text="Gerar token grátis"></a>
+                </div>
+              </div>
+              <p class="tools-hint" id="licenseHint"></p>
+            </div>
+          </details>
+        </div>
+        <div class="options-list">
+          <div class="option-item language-option">
+            <div class="option-info">
+              <label class="option-name" for="extensionLanguage">Idioma da extensão</label>
+              <div class="option-desc">Escolha o idioma do painel.</div>
+            </div>
+            <select id="extensionLanguage">
+              <option value="pt-BR" lang="pt-BR">Português</option>
+              <option value="en" lang="en">English</option>
+              <option value="es" lang="es">Español</option>
+              <option value="fr" lang="fr">Français</option>
+            </select>
+          </div>
+          <div class="options-list-group" id="settingsNotifications" data-no-i18n>
+            <div class="option-item">
+              <div class="option-info">
+                <div class="option-name" data-tool-text="Metas atingidas"></div>
+                <div class="option-desc" data-tool-text="Notificar quando uma meta de XP ou Ouro for atingida."></div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="toolsNotifyGoal" form="toolsPrefs" checked aria-label="Metas atingidas" />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="option-item">
+              <div class="option-info">
+                <div class="option-name" data-tool-text="Erros na farm"></div>
+                <div class="option-desc" data-tool-text="Notificar quando ocorrer um erro durante a farm."></div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="toolsNotifyError" form="toolsPrefs" checked aria-label="Erros na farm" />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="option-item">
+              <div class="option-info">
+                <div class="option-name" data-tool-text="Desconexão do jogo"></div>
+                <div class="option-desc" data-tool-text="Notificar quando a conexão com o jogo cair."></div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="toolsNotifyDisconnect" form="toolsPrefs" checked aria-label="Desconexão do jogo" />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="settings-links">
+          <button type="button" class="nav-card information-shortcut" data-page="about">Informações</button>
+          <button type="button" class="nav-card support-shortcut" data-page="support">Suporte</button>
+        </div>
+      </div>
+
+      <!-- About Page -->
+      <div class="page" id="page-about">
+        <h2 class="page-title">Informações</h2>
+        <section class="about-card" aria-labelledby="aboutTitle">
+          <div class="about-icon" aria-hidden="true">i</div>
+          <div class="about-heading">
+            <p class="about-eyebrow">Sobre o 4utoWolves</p>
+            <h3 id="aboutTitle">4utoWolves</h3>
+          </div>
+          <dl class="about-details">
+            <div><dt>Nome</dt><dd id="aboutName">4utoWolves</dd></div>
+            <div><dt>Versão</dt><dd id="aboutVersion">1.5.0</dd></div>
+          </dl>
+        </section>
+      </div>
+
+      <!-- Support Page -->
+      <div class="page" id="page-support">
+        <h2 class="page-title">Support</h2>
+        <div class="support-links">
+          <a
+            href="https://discord.gg/4battAFp2"
+            target="_blank"
+            class="support-link support-link-discord"
+          >
+            <div class="support-icon"><img src="assets/discord.svg" width="28" height="28" alt="" /></div>
+            <div class="support-info">
+              <div class="support-name">Discord</div>
+              <div class="support-desc">Join our community</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Profile Page -->
+      <div class="page" id="page-profile">
+        <div class="profile-topbar">
+          <h2 class="page-title">Perfil</h2>
+          <button type="button" id="profileBack" class="profile-back" aria-label="Fechar">
+            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <section class="profile-welcome-card" aria-labelledby="profileWelcomeTitle">
+          <div>
+            <p class="profile-welcome-eyebrow">Seja bem-vindo(a)</p>
+            <h3 id="profileWelcomeTitle" class="profile-welcome-title">—</h3>
+          </div>
+        </section>
+        <section class="profile-level-card" aria-labelledby="profileLevelTitle">
+          <div class="profile-level-head">
+            <div>
+              <p class="profile-level-eyebrow">Nível atual</p>
+              <h3 id="profileLevelTitle" class="profile-level-value">—</h3>
+            </div>
+            <div class="profile-level-badge" aria-hidden="true">
+              <img src="assets/xp-card.svg" width="16" height="16" alt="" />
+            </div>
+          </div>
+          <progress id="profileLevelProgress" class="profile-level-progress" max="1" value="0"></progress>
+          <p class="profile-level-caption" id="profileLevelCaption">Aguardando dados de XP do jogo.</p>
+        </section>
+        <a id="profileGenerateLink" class="license-generate-link profile-generate-link" href="#" target="_blank" rel="noopener">Gerar token grátis</a>
+      </div>
+    </main>
+
+    <section id="updatesPanel" class="updates-panel hidden" role="dialog" aria-modal="true" aria-labelledby="updatesTitle">
+      <div class="updates-panel-card">
+        <div class="updates-heading">
+          <h2 id="updatesTitle">Notificações</h2>
+          <div class="updates-heading-actions">
+            <button type="button" id="updatesRefresh">Atualizar</button>
+            <button type="button" id="updatesClose" aria-label="Fechar notificações">✕</button>
+          </div>
+        </div>
+        <p id="updatesStatus" class="updates-status" role="status">Aguardando configuração do repositório.</p>
+        <div id="updatesList" class="updates-list" data-no-i18n></div>
+      </div>
+    </section>
+
+    <nav class="bottom-nav" aria-label="Navegação principal">
+      <button class="nav-item active" type="button" data-page="overview" aria-current="page"><img src="assets/nav-xp.svg" width="14" height="14" alt="" /><span>XP</span></button>
+      <button class="nav-item" type="button" data-page="xp"><img src="assets/nav-gold.svg" width="14" height="14" alt="" /><span>Ouro</span></button>
+      <button class="nav-item" type="button" data-page="misc"><img src="assets/nav-tools.svg" width="14" height="14" alt="" /><span>Tools</span></button>
+      <button class="nav-item" type="button" data-page="results"><img src="assets/nav-results.svg" width="14" height="14" alt="" /><span>Resultados</span></button>
+      <button class="nav-item" type="button" data-page="options"><img src="assets/nav-settings.svg" width="14" height="14" alt="" /><span>Settings</span></button>
+    </nav>
+    <div id="footerNotify" class="footer-notify" aria-live="polite"></div>
+    <script src="../lib/tools-text.js"></script>
+    <script src="i18n.js"></script>
+    <script src="shared.js"></script>
+    <script src="nav.js"></script>
+    <script src="settings.js"></script>
+    <script src="home.js"></script>
+    <script src="gold.js"></script>
+    <script src="tools.js"></script>
+    <script src="updates.js"></script>
+  </body>
+</html>
