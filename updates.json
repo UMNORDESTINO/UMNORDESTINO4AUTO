@@ -1,8 +1,8 @@
 {
   "updates": [
     {
-      "id": "v1-6-0",
-      "version": "1.6.0",
+      "id": "v2-0-0",
+      "version": "2-0-0",
       "date": "2026-09-20",
       "title": {
         "pt-BR": "Nova página de Perfil",
@@ -16,7 +16,7 @@
         "es": "Ahora puedes ver tu nivel y el XP restante para el próximo nivel.",
         "fr": "Vous pouvez maintenant voir votre niveau et l'XP restant avant le niveau suivant."
       },
-      "url": "https://github.com/UMNORDESTINO/UMNORDESTINO4AUTO"
+      "url": "https://drive.google.com/drive/folders/1Qkdd_zAYe_F-ejvyq3YmbfnAaH8pzGiN?usp=sharing"
     }
   ]
 }
